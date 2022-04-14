@@ -7,7 +7,6 @@ import ru.merichka.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Component
 public class UserServiceImpl implements UserService {
     private static int USERS_COUNT;
