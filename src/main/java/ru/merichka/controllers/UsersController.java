@@ -33,7 +33,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edidtUserForm(@PathVariable(value = "id", required = true) long id, Model model,
+    public String editUserForm(@PathVariable(value = "id", required = true) int id, Model model,
                                 RedirectAttributes attributes) {
         User user = userService.readUser((int) id);
 
@@ -60,7 +60,7 @@ public class UsersController {
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam(value = "id", required = true, defaultValue = "") long id,
+    public String deleteUser(@RequestParam(value = "id", required = true, defaultValue = "") int id,
                              RedirectAttributes attributes) {
         User user = userService.deleteUser((int) id);
 
@@ -71,3 +71,4 @@ public class UsersController {
         return "redirect:/users";
     }
 }
+
