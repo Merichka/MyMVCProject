@@ -1,60 +1,45 @@
 package ru.merichka.dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.merichka.models.User;
-
 import java.util.List;
 
 @Component
-@Transactional
+@Repository
 public class UserDAOImpl implements UserDAO {
-    public UserDAOImpl() {
-    }
-
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public List<User> allUsers() {
-        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+        TypedQuery<User> query = entityManager.createQuery("SELECT user FROM User user",User.class);
+        return query.getResultList();
     }
 
+    @Override
     @Transactional
-    @Override
-    public void save(User user) {
-        User managed = entityManager.merge(user);
-        entityManager.persist(managed);
+    public void add(User user) {
+        entityManager.persist(user);
+
     }
 
+    @Override
     @Transactional
-    @Override
-    public void delete(User user) {
-        User managed = entityManager.merge(user);
-        entityManager.remove(managed);
-    }
+    public void delete(int id) {
+        User old = entityManager.find(User.class, id);
+            entityManager.remove(old);
 
-       @Override
-    public User getById(Long id) {
-        return null;
     }
 
     @Override
-    public User getById(long id) {
-        return entityManager.find(User.class, id );
-    }
-
-    @Override
-    public User getUserByName(String username) {
-        try {
-            return entityManager.createQuery("SELECT u FROM User u where u.name = :name", User.class)
-                    .setParameter("name", username)
-                    .getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+    @Transactional
+    public void update(User user) {
+        User old = entityManager.find(User.class, user.getId());
+        old.setName(user.getName());
     }
 }
