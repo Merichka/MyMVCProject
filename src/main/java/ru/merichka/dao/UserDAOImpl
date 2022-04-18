@@ -28,18 +28,15 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-    @Override
+   @Override
     @Transactional
     public void delete(int id) {
-        User old = entityManager.find(User.class, id);
-            entityManager.remove(old);
-
+         entityManager.remove(id);
     }
-
+    
     @Override
     @Transactional
     public void update(User user) {
-        User old = entityManager.find(User.class, user.getId());
-        old.setName(user.getName());
+        entityManager.merge(user);
     }
 }
