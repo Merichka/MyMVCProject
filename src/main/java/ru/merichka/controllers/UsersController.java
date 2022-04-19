@@ -1,10 +1,10 @@
 package ru.merichka.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.merichka.models.User;
@@ -39,15 +39,13 @@ public class UsersController {
 
         if (null == user) {
             attributes.addFlashAttribute("flashMessage", "User are not exists!");
-            return "redirect:/users";
-        }
 
-        model.addAttribute("user", userService.readUser((long) id));
-        return "user";
+        }
+        return "redirect:/users";
     }
 
     @PostMapping
-    public String saveUser(@ModelAttribute("user") @Validated User user, BindingResult bindingResult,
+    public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                            RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             return "user";
@@ -71,4 +69,3 @@ public class UsersController {
         return "redirect:/users";
     }
 }
-
