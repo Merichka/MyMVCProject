@@ -33,20 +33,20 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editUserForm(@PathVariable(value = "id", required = true) int id, Model model,
-                                RedirectAttributes attributes) {
-        User user = userService.readUser((int) id);
+    public String editUserForm(@RequestParam(value = "id", required = true, defaultValue = "") long id,
+                               RedirectAttributes attributes) {
+        User user = userService.readUser((long) id);
 
         if (null == user) {
             attributes.addFlashAttribute("flashMessage", "User are not exists!");
             return "redirect:/users";
         }
 
-        model.addAttribute("user", userService.readUser((int) id));
+        model.addAttribute("user", userService.readUser((long) id));
         return "user";
     }
 
-    @PostMapping()
+    @PostMapping
     public String saveUser(@ModelAttribute("user") @Validated User user, BindingResult bindingResult,
                            RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
@@ -60,9 +60,9 @@ public class UsersController {
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam(value = "id", required = true, defaultValue = "") int id,
+    public String deleteUser(@RequestParam(value = "id", required = true, defaultValue = "") long id,
                              RedirectAttributes attributes) {
-        User user = userService.deleteUser((int) id);
+        User user = userService.deleteUser((long) id);
 
         attributes.addFlashAttribute("flashMessage", (null == user) ?
                 "User are not exists!" :
