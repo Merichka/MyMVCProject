@@ -7,7 +7,7 @@ import ru.merichka.models.User;
 import java.util.ArrayList;
 
 @Service
-public class UserService {
+public class UserServiceImpl {
 
     private final UserDAO userDAO;
 
