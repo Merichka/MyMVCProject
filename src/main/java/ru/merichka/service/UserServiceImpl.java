@@ -5,65 +5,30 @@ import org.springframework.stereotype.Service;
 import ru.merichka.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
-    private static int USERS_COUNT;
-    private List<User> users;
+public class UserService {
 
-    {
-        users = new ArrayList<>();
+    private final UserDAO userDAO;
 
-        users.add(new User(++USERS_COUNT, "Dima"));
-        users.add(new User(++USERS_COUNT, "Masha"));
-        users.add(new User(++USERS_COUNT, "Vanya"));
-        users.add(new User(++USERS_COUNT, "Dasha"));
+    @Autowired
+    public UserService(UseDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
-    public List<User> index() {
-        return users;
+    public User findById(Long id){
+        return userDAO.getOne(id);
     }
 
-    public Object show(int id) {
-        return users.stream().filter(user -> user.getId() == id).findAny().orElse(null);
+    public List<User> findAll(){
+        return userDAO.findAll();
     }
 
-    public void save(User user) {
-        user.setId(++USERS_COUNT);
-        users.add(user);
+    public User saveUser(User user){
+        return userDAO.save(user);
     }
 
-    public void update(int id, User updatedUser) {
-        User userToBeUpdated = (User) show(id);
-
-        userToBeUpdated.setName(updatedUser.getName());
-
-    }
-
-    public void delete(int id) {
-        users.removeIf(p -> p.getId() == id);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public User readUser(int id) {
-        return null;
-    }
-
-    @Override
-    public User deleteUser(int id) {
-        return null;
-    }
-
-    @Override
-    public void createOrUpdateUser(User user) {
-
+    public void deleteById(Long id){
+        userDAO.deleteById(id);
     }
 }
-
-
