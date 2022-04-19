@@ -1,18 +1,15 @@
 package ru.merichka.models;
 
 public class User {
-    private int id;
+    private long id;
     private String name;
-    public User() {
 
-    }
-
-    public User(int id, String name) {
+    public User(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -20,7 +17,7 @@ public class User {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -28,5 +25,3 @@ public class User {
         this.name = name;
     }
 }
-
-
