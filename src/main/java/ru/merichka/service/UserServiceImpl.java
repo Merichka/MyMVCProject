@@ -1,10 +1,10 @@
 package ru.merichka.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.merichka.dao.UserDAO;
 import ru.merichka.models.User;
 
-import java.util.ArrayList;
 
 @Service
 public class UserServiceImpl {
@@ -12,7 +12,7 @@ public class UserServiceImpl {
     private final UserDAO userDAO;
 
     @Autowired
-    public UserService(UserDAO userDAO) {
+    public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -24,7 +24,7 @@ public class UserServiceImpl {
         userDAO.update(user);
     }
 
-    public void deleteUser(int id){
+    public void deleteUser(long id){
         userDAO.delete(id);
     }
 }
