@@ -5,9 +5,9 @@ import ru.merichka.models.User;
 public interface UserService {
     Object getAllUsers();
 
-    User readUser(int id);
+    User readUser(long id);
 
-    User deleteUser(int id);
+    User deleteUser(long id);
 
     void createOrUpdateUser(User user);
 
