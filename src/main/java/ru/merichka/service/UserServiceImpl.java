@@ -11,19 +11,20 @@ public class UserService {
 
     private final UserDAO userDAO;
 
-   @Autowired
+    @Autowired
     public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
     public void add(User user){
-        return userDAO.addUser(user);
+        userDAO.addUser(user);
     }
 
-    public update(User user){
-        return userDAO.update(user);
+    public void update(User user){
+        userDAO.update(user);
     }
 
     public void deleteUser(int id){
         userDAO.delete(id);
     }
+}
