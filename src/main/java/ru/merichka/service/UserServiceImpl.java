@@ -11,24 +11,19 @@ public class UserService {
 
     private final UserDAO userDAO;
 
-    @Autowired
-    public UserService(UseDAO userDAO) {
+   @Autowired
+    public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
-    public User findById(Long id){
-        return userDAO.getOne(id);
+    public void add(User user){
+        return userDAO.addUser(user);
     }
 
-    public List<User> findAll(){
-        return userDAO.findAll();
+    public update(User user){
+        return userDAO.update(user);
     }
 
-    public User saveUser(User user){
-        return userDAO.save(user);
+    public void deleteUser(int id){
+        userDAO.delete(id);
     }
-
-    public void deleteById(Long id){
-        userDAO.deleteById(id);
-    }
-}
