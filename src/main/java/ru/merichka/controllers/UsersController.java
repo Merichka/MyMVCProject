@@ -32,7 +32,7 @@ public class UsersController {
         return "users";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit")
     public String editUserForm(@RequestParam(value = "id", required = true, defaultValue = "") long id,
                                RedirectAttributes attributes) {
         User user = userService.readUser((long) id);
